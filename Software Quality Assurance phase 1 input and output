@@ -1,0 +1,1235 @@
+login_01 Input File (login_01.inp)
+Login 
+Standard
+—
+Login 
+Admin
+
+login_01 Expected Bank Account Transaction File Output (login_01.etf)
+Transaction: Login
+Kind of session: Standard 
+— 
+Transaction: Login
+Kind of session: Admin 
+
+login_01 Expected Output (login_01.oup)
+Hello welcome to the banking system 
+Enter session type: 
+Login successful 
+
+login_02 Input File (login_02.inp)
+Login 
+Standard 
+Account Holder Name 
+
+login_02 Expected Bank Account Transaction File Output (login_02.etf)
+Transaction: Login
+Kind of session: Standard 
+Bank Account Holder Name: AAAAAAAAAAAAAAAAAAAA (40 characters) 
+
+login_02 Expected Output (login_02.oup) 
+Hello welcome to the banking system 
+Enter session type: 
+Please provide the account holder’s name: 
+Login successful
+
+login_03 Input File (login_03.inp)
+Login
+Standard 
+(possible invalid inputs for name) 
+ThisIsWayTooLongForInput 
+1234567890 
+TooLongInputHereWithMoreThan20Chars 
+&&**%%!!
+
+login_03 Expected Bank Account Transaction File Output (login_03.etf)
+Transaction: Login
+Kind of session: Standard 
+Invalid input for account holder 
+
+login_03 Expected Output (login_03.oup)
+Hello welcome to the banking system 
+Enter session type: 
+Please provide the account holder’s name:
+Invalid input for account holder name 
+Login unsuccessful 
+
+login_04 Input File (login_04.inp)
+Deposit 
+—
+Withdrawal 
+
+login_04 Expected Bank Account Transaction File Output (login_04.etf)
+Transaction: Deposit 
+–
+Transaction: Withdrawal 
+
+login_04 Expected Output (login_04.oup)
+Hello welcome to the banking system 
+Sorry, no transaction other than login can be accepted 
+
+login_05 Input File (login_05.inp) 
+Login 
+Standard 
+Account Holder Name 
+—
+Login 
+Admin
+
+login_05 Expected Bank Account Transaction File Output (login_05.etf) 
+Transaction: Login 
+Kind of Session: Standard
+Bank Account Holder Name: AAAAAAAAAAAAAAAAAAAA (40 characters) 
+Bank Account Number: NNNNN 
+Amount of funds: PPPPPPPP
+—
+Transaction: Login
+Kind of Session: Admin
+Bank Account Holder Name: AAAAAAAAAAAAAAAAAAAA (40 characters) 
+Bank Account Number: NNNNN 
+Amount of funds: PPPPPPPP
+
+login_05 Expected Output (login_05.oup) 
+Hello welcome to the banking system
+Enter session type: 
+Please provide the account holder’s name: 
+Login successful 
+—
+Hello welcome to the banking system 
+Enter session type: 
+Login successful 
+
+login_06 Input File (login_06.inp) 
+Login
+Standard
+Account Holder Name
+Create / Delete / Disable / Change plan (any of these inputs) 
+
+login_06 Expected Bank Account Transaction File Output (login_06.etf) 
+Transaction: Login 
+Kind of Session: Standard
+Bank Account Holder Name: AAAAAAAAAAAAAAAAAAAA (40 characters) 
+Transaction: Create / Delete / Disable / Change plan
+
+login_06 Expected Output (login_06.oup)
+Hello welcome to the banking system 
+Enter session type: 
+Please enter account holder name: 
+Login successful 
+Privileged transaction denied for standard user 
+
+login_07 Input File (login_07.inp) 
+Login 
+Admin
+Create / Delete / Disable / Change plan 
+
+login_07 Expected Bank Account Transaction File Output (login_07.etf) 
+Transaction: Login
+Kind of session: Admin
+Transaction: Create / Delete / Disable / Change plan
+
+login_07 Expected Output (login_07.oup) 
+Hello welcome to the banking system 
+Enter session type: 
+Login successful 
+Privileged transaction can continue for admin 
+
+withdrawal_8 Input File (withdrawal_8.inp)
+Login
+standard
+Withdraw
+AccountHolderName
+AccountNumber
+100
+
+withdrawal_8 Expected Bank Account Transaction File Output (withdrawal_8.etf)
+AccountHolderName
+AccountNumber
+Withdraw 100
+New Balance: (previous balance - 100)
+
+withdrawal_8 Expected Output (withdrawal_8.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Withdraw function selected
+Enter account holder name:
+Enter account number:
+Enter withdrawal amount:
+Withdrawal successful. Your new balance is (New Balance).
+
+
+withdrawal_9 Input File (withdrawal_9.inp)
+Login
+standard
+Withdraw
+AccountHolderName
+AccountNumber
+600
+
+withdrawal_9 Expected Bank Account Transaction File Output (withdrawal_9.etf)
+AccountHolderName
+AccountNumber
+Withdraw 600
+Transaction failed (session withdrawal limit exceeded)
+
+withdrawal_9 Expected Output (withdrawal_9.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Withdraw function selected
+Enter account holder name:
+Enter account number:
+Enter withdrawal amount:
+Error: Withdrawal amount exceeds $500 session limit.
+
+
+withdrawal_10 Input File (withdrawal_10.inp)
+Login
+standard
+Withdraw
+AccountHolderName
+AccountNumber
+500
+
+withdrawal_10 Expected Bank Account Transaction File Output (withdrawal_10.etf)
+AccountHolderName
+AccountNumber
+Withdraw 500
+Transaction failed (insufficient funds)
+
+withdrawal_10 Expected Output (withdrawal_10.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Withdraw function selected
+Enter account holder name:
+Enter account number:
+Enter withdrawal amount:
+Error: Insufficient funds. Withdrawal declined.
+
+withdrawal_11 Input File (withdrawal_11.inp)
+Login
+standard
+Withdraw
+InvalidAccountHolder
+InvalidAccountNumber
+100
+
+withdrawal_11 Expected Bank Account Transaction File Output (withdrawal_11.etf)
+InvalidAccountHolder
+InvalidAccountNumber
+Withdraw 100
+Transaction failed (invalid account details)
+
+withdrawal_11 Expected Output (withdrawal_11.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Withdraw function selected
+Enter account holder name:
+Enter account number:
+Enter withdrawal amount:
+Error: Invalid account details. Withdrawal declined.
+
+withdrawal_12 Input File (withdrawal_12.inp)
+Login
+admin
+Withdraw
+AccountHolderName
+AccountNumber
+300
+
+withdrawal_12 Expected Bank Account Transaction File Output (withdrawal_12.etf)
+AccountHolderName
+AccountNumber
+Admin Withdraw 300
+New Balance: (previous balance - 300)
+
+withdrawal_12 Expected Output (withdrawal_12.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Admin privileges granted
+Withdraw function selected
+Enter account holder name:
+Enter account number:
+Enter withdrawal amount:
+Withdrawal successful. New balance is (New Balance).
+
+deposit_13 Input File (deposit_13.inp) 
+Login 
+Admin
+Deposit 
+John Doe
+87654
+1000
+
+deposit_13 Expected Bank Account Transaction File Output (depsoit_13.etf) 
+Transaction: Deposit
+Kind of session: Admin
+Transaction: Deposit
+Bank Account Holder Name: John Doe
+Bank Account Number: 87654
+Amount of funds: 0
+New Amount of funds: 1000
+
+deposit_13 Expected Output (deposit_13.oup) 
+Hello welcome to the banking system 
+Enter session type:
+Login Successful 
+Deposit Transaction selected 
+Please provide the account holder’s name: 
+Please enter account number: 
+Please enter amount of funds to deposit: 
+Deposit successfully. New amount of funds 
+
+deposit_14 Input File (deposit_14.inp) 
+Login 
+Admin
+Deposit 
+
+(possible invalid inputs for account holder name v)
+ThisIsWayTooLongForInput 
+1234567890 
+TooLongInputHereWithMoreThan20Chars 
+&&**%%!!
+
+deposit_14 Expected Bank Account Transaction File Output (depsoit_14.etf) 
+Transaction: Deposit
+Kind of session: Admin
+Transaction: Deposit
+Invalid input for account name 
+
+deposit_14 Expected Output (deposit_14.oup)
+Hello welcome to the banking system 
+Enter session type:
+Login Successful 
+Deposit Transaction selected 
+Please provide the account holder’s name: 
+Invalid input for account holder name
+Deposit unsuccessful 
+
+deposit_15 Input File (deposit_15.inp)
+Login 
+Admin
+Deposit 
+John Doe
+
+(possible invalid inputs for account number)
+123456 (more than 5 digits)
+123A5 (letters)
+12 34 5 (spaces)
+12#45 (special characters)
+
+deposit_15 Expected Bank Account Transaction File Output (depsoit_15.etf) 
+Transaction: Deposit
+Kind of session: Admin
+Transaction: Deposit
+Bank Account Holder Name: John Doe
+Invalid account number 
+
+deposit_15 Expected Output (deposit_15.oup)
+Hello welcome to the banking system 
+Enter session type:
+Login Successful 
+Deposit Transaction selected 
+Please provide the account holder’s name: 
+Please enter account number: 
+Invalid input for account number 
+Deposit unsuccessful 
+
+deposit_16 Input File (deposit_16.inp)
+Login 
+Admin
+Deposit 
+John Doe
+87654
+
+(possible inputs for amount of deposit)
+-500
+0
+-1000000
+
+deposit_16 Expected Bank Account Transaction File Output (depsoit_16.etf) 
+Transaction: Deposit
+Kind of session: Admin
+Transaction: Deposit
+Bank Account Holder Name: John Doe
+Bank Account Number: 87654
+Invalid amount of funds 
+
+deposit_16 Expected Output (deposit_16.oup)
+Hello welcome to the banking system 
+Enter session type:
+Login Successful 
+Deposit Transaction selected 
+Please provide the account holder’s name: 
+Please enter account number: 
+Please enter account number:
+Please enter amount of funds to deposit:
+Invalid input for amount of funds to deposit: 
+Deposit unsuccessful 
+
+deposit_17 Input File (deposit_17.inp)
+Login 
+Admin
+Deposit 
+John Doe
+87654
+1000
+Withdrawal
+
+deposit_17 Expected Bank Account Transaction File Output (depsoit_17.etf) 
+Transaction: Deposit
+Kind of session: Admin
+Transaction: Deposit
+Bank Account Holder Name: John Doe
+Bank Account Number: 87654
+Amount of funds: 0
+New Amount of funds: 1000
+Withdrawal failed 
+
+deposit_17 Expected Output (deposit_17.oup)
+Hello welcome to the banking system 
+Enter session type:
+Login Successful 
+Deposit Transaction selected 
+Please provide the account holder’s name: 
+Please enter account number: 
+Please enter account number:
+Please enter amount of funds to deposit:
+Deposit successful
+Withdrawal Failed, deposited funds not available for use in this session 
+
+Bank_create_18 input file.inp 
+Login 
+admin 
+Create
+
+Bank_create_18 expected bank account transaction file output. etf 
+
+
+Bank_create_18 expected output admin.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Create function selected 
+Input name of account
+
+Bank_create_18 expected output standard.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Sorry this function is not available to you. 
+
+Bank_create_19 input file. Inp
+Login 
+admin 
+Create
+Name
+
+Bank_create_19 expected bank account transaction file output. Etf
+
+Name 
+account number (note, this is created when valid name is given and compared to existing numbers to make sure there is no repeats)
+
+Bank_create_19 expected output success.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Create function selected
+Input name of account
+Account number is :account number
+How much money would you like to deposit in your new account
+
+
+Bank_create_19 expected output name too long.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Create function selected
+Input name of account (max 20 characters )
+Sorry the given name is to long, please enter a name that is less than 20 characters long 
+
+Bank_create_20 input file. Inp
+Login 
+admin 
+Create
+Name
+Deposit 
+
+Bank_create_20 expected bank account transaction file output. Etf
+
+Name 
+account number (note, this is create when valid name is given and compared to existing numbers to make sure there is no repeats)
+Account value
+
+Bank_create_20 expected output success.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Create function selected
+Input name of account
+Account number is: account number
+How much money would you like to deposit in your new account
+Deposited (amount)
+
+Bank_create_20 expected output too much money.oup
+Enter session type:
+Login successful 
+Create function selected
+Input name of account
+Account number is: account number
+How much money would you like to deposit in your new account
+Sorry you are trying to deposit too much money into a new account the limit is $99999.99
+
+
+Bank_create_21 input file. Inp
+Login 
+admin 
+Create
+Name
+Deposit 
+
+Bank_create_21 expected bank account transaction file output. Etf
+
+Name 
+account number 
+Account value
+Account disabled until logout
+
+Bank_create_21 expected output success.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful 
+Create function selected
+Input name of account
+How much money would you like to deposit in your new account
+Deposited (amount)
+Account created and all information saved. Currently all functions have been disabled until logout.
+
+bank_changePlan_22 input file (Change plan 25.inp)
+Login 
+Admin 
+Change plan
+
+bank_changePlan_22 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account type
+Account value 
+
+bank_changePlan 22 expected output admin uesr. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+
+
+bank_changePlan 22 expected output standard user . Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Sorry this function is not available to you. 
+
+bank_changePlan_23 input file 
+Login 
+Admin 
+Change plan
+Account name
+
+bank_changePlan_23 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account type
+Account value 
+
+bank_changePlan 23 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+Please provide the account number of the account you would like to make changes to
+
+bank_changePlan 23 expected output name not in use. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+The name you have given is not in use
+
+bank_changePlan_24 input file 
+Login 
+Admin 
+Change plan
+Account name
+Account number 
+
+bank_changePlan_24 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account type
+Account value
+
+bank_changePlan 24 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+Please provide the account number of the account you would like to make changes to
+Would you like to change the account form a student to a non-student  (yes or no)
+
+bank_changePlan 24 expected output incorrect number. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+Please provide the account number of the account you would like to make changes to
+The account number does not match the account name
+
+bank_changePlan_25 input file 
+Login 
+Admin 
+Change plan
+Account name
+Account number 
+yes
+
+bank_changePlan 25 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Change plan selected
+Please provide the name of the account you would like to make changes to
+Please provide the account number of the account you would like to make changes to
+Would you like to change the account form a student to a non-student  (yes or no)
+Account changed to non student 
+
+bank_changePlan_25 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account type
+Account value
+
+bank_delete_26 input file.inp
+Login 
+Admin
+Delete
+
+bank_delete_26 expected bank account transaction file output.etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_delete_27 expected output admin user.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Delete selected
+Please provide the name of the account you would like to delete
+
+bank_delete_27 expected output standard user.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Sorry this function is not available to you.
+
+bank_delete_28 input file.inp
+Login 
+Admin 
+Delete
+Account name
+
+bank_delete_28 expected bank account transaction file output.etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_delete_28 expected output.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Delete selected
+Please provide the name of the account you would like to delete
+Please provide the account number of the account you would like to delete
+
+bank_delete_28 expected output name not in use. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Delete selected
+Please provide the name of the account you would like to delete
+The name you have given is not in use
+
+bank_delete_29 input file.inp
+Login 
+Admin 
+Delete
+Account name
+Account number 
+
+bank_delete_29 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_delete 29 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Delete selected
+Please provide the name of the account you would like to delete
+Please provide the account number of the account you delete
+Are you sure you want to delete this account? (yes or no)
+
+bank_delete_30 input file.inp
+Login 
+Admin 
+Delete
+Account name
+Account number 
+yes
+
+bank_delete 30 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Delete selected
+Please provide the name of the account you would like to delete
+Please provide the account number of the account you would like to delete
+Are you sure you want to delete this account? (yes or no)
+Account deleted
+
+bank_delete_31 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_disable_32_input_file.inp
+Login 
+Admin
+Disable
+
+bank_disable_32 expected bank account transaction file output.etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_disable_33 expected output admin user.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Disable selected
+Please provide the name of the account you would like to disable
+
+bank_disable_33 expected output standard user.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Sorry this function is not available to you.
+
+bank_disable_34 input file.inp
+Login 
+Admin 
+Disable
+Account name
+
+bank_disable_34 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account status
+Account value
+
+bank_disable_34 expected output.oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Disable selected
+Please provide the name of the account you would like to disable
+Please provide the account number of the account you would like to disable
+
+bank_disable_34 expected output name not in use. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Disable selected
+Please provide the name of the account you would like to disable
+The name you have given is not in use
+
+bank_disable_35 input file.inp
+Login 
+Admin 
+Disable
+Account name
+Account number
+
+bank_disable 35 expected output. Oup
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Disable selected
+Please provide the name of the account you would like to disable
+Please provide the account number of the account you would like to disable
+Account disabled
+
+bank_disable_36 expected bank account transaction file output. etf
+Account name 
+Account number 
+Account status
+Account value
+
+
+logout_37 Input File (logout_37.inp)
+Login
+standard
+Logout
+
+logout_37 Expected Bank Account Transaction File Output (logout_37.etf)
+Transaction: Logout
+Session successfully terminated.
+
+logout_37 Expected Output (logout_37.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Logout function selected
+Session terminated successfully.
+
+logout_38 Input File (logout_38.inp)
+Login
+standard
+Logout
+Withdraw
+100
+logout_38 Expected Bank Account Transaction File Output (logout_38.etf)
+Transaction: Logout
+Session successfully terminated.
+Withdraw 100
+Transaction failed (no active session)
+
+logout_38 Expected Output (logout_38.oup)
+Hello welcome to the banking system
+Enter session type:
+Login successful
+Logout function selected
+Session terminated successfully.
+Error: No active session. Please log in to proceed.
+
+logout_39 Input File (logout_03.inp)
+Logout
+
+logout_39 Expected Bank Account Transaction File Output (logout_39.etf)
+Transaction failed (no active session)
+
+logout_39 Expected Output (logout_39.oup)
+Hello welcome to the banking system
+Error: No active session. Please log in first.
+
+Transfer_40 input admin .inp
+Login 
+Admin 
+Transfer 
+Account name
+
+Transfer_40 input standard .inp
+Login 
+Standard 
+Transfer 
+
+
+Transfer_40 expected output admin .oup
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function selected 
+User is an admin. Enter the account holder name:
+
+
+
+Transfer_40 expected output standard .oup
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function selected 
+
+Transfer 40 expected bank account transaction file output.etf
+Transaction: transfer 
+Session type: admin/standard  
+Account holder: account name
+
+Transfer_41 input .inp
+Login 
+admin/standard 
+Transfer 
+Account number 1 
+
+Transfer_41 expected output .inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+
+Transfer_41 expected output invalid number.inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Error: invalid sender account number for user
+
+Transfer 41 expected bank account transaction file output.etf
+Transaction: transfer 
+Session type: admin/standard  
+Account holder: account name
+Account number one
+Account value
+
+Transfer_42 input .inp
+Login 
+admin/standard 
+Transfer 
+Account number 1 
+Account number 2
+
+Transfer_42 expected output .inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number 
+
+Transfer_42 expected output invalid number.inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number
+Error: invalid recipient account number for user
+
+Transfer 42 expected bank account transaction file output.etf
+Transaction: transfer 
+Session type: admin/standard  
+Account holder: account name
+Account number one
+Account value
+Account number two
+Account value
+Amount to transfer
+
+Transfer_43 input.inp
+Login 
+admin/standard 
+Transfer 
+Account number 1 
+Account number 2
+Amount transferred 
+
+
+Transfer_43 expected output .inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number 
+Enter the amount you want to transfer
+
+Transfer_43 expected output standard >1000.inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number 
+Enter the amount you want to transfer
+Error transfer limit for standard mode has been exceeded (>$1000)
+
+
+Transfer_43 expected output insufficient funds.inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number 
+Enter the amount you want to transfer
+Error sender does not have enough money to complete transaction
+
+Transfer 43 expected bank account transaction file output.etf
+Transaction: transfer 
+Session type: admin/standard  
+Account holder: account name
+Account number one
+Account value (new)
+Account number two
+Account value (new)
+Amount to transfer
+
+Transfer_44 expected output.inp
+Hello, welcome to the banking system. 
+Enter session type: 
+Login successful
+Transfer function select
+Enter the sender’s account number
+Enter the recipient’s account number 
+Enter the amount you want to transfer
+Transaction successful: Amount to transfer transferred from Account number one to
+Account number two 
+Transaction has been saved.
+
+payBill_45 input standard 48.inp
+Login
+Standard
+payBill
+
+payBill_45 input admin 48a.inp
+Login
+Admin
+payBill
+AccountHolderName
+
+payBill_45 expected standard Output.oup
+Hello welcome to the banking system
+Enter session type: 
+Login successful 
+payBill transaction selected 
+
+payBill_45 expected admin output.oup
+Hello welcome to the banking system
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name: 
+
+payBill_45 admin expected bank account transaction file output. etf
+Transaction: payBill 
+Type of session: admin OR standard 
+Account holder name: AccountHolderName
+
+payBill_46 Input file.inp
+Login
+Admin / Standard 
+payBill
+AccountHolderName
+AccountNumber 
+
+payBill_46 expected bank account transaction file output. etf
+Transaction: payBill
+Type of session: Admin / Standard
+Account Holder Name: account holder name 
+Account Number: account number 
+
+payBill_46 Expected output.oup
+Hello welcome to the banking system
+Enter session type: 
+Login successful 
+PayBill transaction selected 
+Please enter account holder’s name
+Please enter account number 
+
+payBill_46a Input File.inp
+Login
+Admin / Standard
+payBill
+AccountHolderName
+Invalid Account Number
+
+payBill 46a expected bank account transaction file output .etf 
+Transaction: payBill
+Type of session: admin / standard 
+Account Holder Name: account holder name 
+Account Number: invalid account number 
+Invalid transaction 
+
+payBill 46a Output file. oup 
+Hello welcome to the banking system 
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name 
+Please enter account number
+Invalid account number 
+
+payBill_47 Input file.inp 
+Login
+Admin / Standard 
+payBill 
+Account Holder Name 
+Account Number 
+Company Name
+
+payBill_47  expected bank account transaction file output.etf 
+Transaction: payBill
+Type of session: admin / standard 
+Account Holder Name: account holder name 
+Account Number: account number 
+Company name: company name 
+
+payBill_47  Expected output.oup 
+Hello welcome to the banking system 
+Enter session type: 
+Login successful
+payBill transaction selected 
+Please enter account holders name 
+Please enter account number 
+Please enter company name: 
+
+payBill_47 a Input file.inp
+Login
+Admin / Standard
+payBill
+Account Holder Name
+Account Number 
+Company Name
+
+payBill_47 a expected bank account transaction file output.etf 
+Transaction: payBill
+Type of session: admin / standard 
+Account Holder Name: account holder name 
+Account Number: account number 
+Company name: company name 
+FCheck if company name: The Bright Light Electric Company (EC)”, “Credit Card Company Q (CQ)” or “Fast Internet, Inc. (FI)
+
+payBill_47 a Expected Output.oup
+Hello welcome to banking system 
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name: 
+Please enter account number: 
+Please enter company name: 
+Company name valid 
+
+payBill_48 Input file.inp
+Login
+Admin / Standard
+payBill
+Account Holder Name
+Account Number 
+Company Name
+Amount to Pay
+
+payBill_48 expected bank account transaction file output.etf 
+Transaction: payBill
+Type of session: admin / standard 
+Account Holder Name: account holder name 
+Account Number: account number 
+Company name: company name 
+
+Amount to Pay: amount to pay 
+payBill_48 Expected Output.oup
+Hello welcome to banking system 
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name: 
+Please enter account number: 
+Please enter company name: 
+Please enter amount to pay: 
+
+payBill_48a standard Input File.inp 
+Login
+Standard
+payBill
+Account Holder Name
+Account Number 
+Company Name
+Amount to Pay
+
+payBill_a48 expected bank account transaction file output.etf 
+Transaction: payBill
+Type of session: standard 
+Account Holder Name: account holder name 
+Account Number: account number 
+Company name: company name 
+Amount to Pay: amount to pay 
+Check if amount to pay > 2000, return error 
+
+payBill_48 Expected Output.oup
+Hello welcome to banking system 
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name: 
+Please enter account number: 
+Please enter company name: 
+Please enter amount to pay: 
+Amount to pay, valid, bill is paid OR amount to pay invalid greater than $2000 error 
+
+payBill_48 a admin Input File.inp 
+Login
+Admin
+payBill
+Account Holder Name
+Account Number 
+Company Name
+Amount to Pay
+
+payBill_48a expected bank account transaction file output.etf 
+Transaction: payBill
+Type of session: admin
+Account Holder Name: account holder name 
+Account Number: account number 
+Company name: company name 
+Amount to Pay: amount to pay 
+
+payBill_48 aExpected Output.oup
+Hello welcome to banking system 
+Enter session type: 
+Login successful 
+payBill transaction selected 
+Please enter account holder name: 
+Please enter account number: 
+Please enter company name: 
+Please enter amount to pay: 
+Amount to pay, valid, bill is paid
+
+payBill_48b (.inp)
+Login
+Admin / Standard
+payBill
+Account Holder Name
+Account Number
+Company Name
+Amount to Pay
+
+payBill_48b (.etf)
+Transaction: payBill
+Type of session: admin / standard
+Account Holder Name: account holder name
+Account Number: account number
+Company name: company name
+Amount to Pay: amount to pay
+Check if account balance >= amount to pay, return error if insufficient funds
+
+payBill_48b (.oup)
+For sufficient funds:
+Hello welcome to the banking system
+Enter session type:
+Login successful
+payBill transaction selected
+Please enter account holder name:
+Please enter account number:
+Please enter company name:
+Please enter amount to pay:
+Transaction successful, bill is paid.
+
+For insufficient funds:
+Hello welcome to the banking system
+Enter session type:
+Login successful
+payBill transaction selected
