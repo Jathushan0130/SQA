@@ -29,4 +29,7 @@ def payBill():
     dwefef
 
 def console():
-    dwf
+    file = open("myfile.txt", "x")
+    login()
+    
+
