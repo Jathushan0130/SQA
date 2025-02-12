@@ -44,6 +44,7 @@ def login():
       			print("Invalid input for user input")
 	 
 	elif session_type == "admin":
+		account_name = input("Please provide the account holder's name: ")
 		print("Login successful as Admin user")
   		display_bank_account(account_name)
            	transaction = input("Give a transaction to input: ")
