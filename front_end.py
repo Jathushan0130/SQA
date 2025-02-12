@@ -1,4 +1,6 @@
 import re 
+import random
+
 def validate_name(name):
     if len(name) > 20:
         return "Error: Name should be less than 20 characters."
@@ -62,10 +64,57 @@ def Deposit():
     pass
 
 def create():
-    pass
+    if(session == "standard"):
+        print("this functions is unavliable to you ")
+    else:
+        print("please enter the name of the account")
+        name = input()
+        if len(name) > 20:
+            print("the name you entered is too long (the max is 20 charaters)")
+        else:
+            name_number = str(random.randrange(1,99999))
+            with open('test.txt') as file:
+                contents = file.read()
+                search_word = name_number
+                if search_word in contents:
+                    name_number = random.randrange(1,99999)
+            print('your account number is: ' + name_number)
+            print("how much money do you want to deposit with cents")
+            amount = input()
+            if float(amount) > 99999.99:
+                print(amount + 'is larger the the max for creating a new acount ($99999.99)')
+            file = open("test.txt", "a")
+            file.write(name)
+            file.write(': ')
+            file.write(name_number)
+            file.write(" $")
+            file.write(amount)
+            file.close()
+            logout()
 
 def changePlan():
-    pass
+    if(session == "standard"):
+        print("this functions is unavliable to you ")
+    else:
+        print('please enter the name of the account you want to change the plan of')
+        with open('test.txt') as file:
+                contents = file.read()
+                search_word = input()
+                if search_word in contents:
+                    print('enter the account number')
+                    number = input()
+                    with open('test.txt') as file:
+                        contents = file.read()
+                        search_word = number
+                        if int(search_word) in contents:
+                            print('would you like to change this student account to a non-student account')
+                            decision = input()
+                            if decision == 'yes':
+                                print('the account is now a non-student')
+                        else:
+                            print('number given is not asscoiated with the name')
+                else:
+                    print('name not found in system')
 
 def delete():
     pass
