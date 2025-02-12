@@ -23,6 +23,10 @@ def admin_transaction(transaction):
  	if transaction.lower() in allowed_transaction:
   		return "Transaction approved for admin user"
 
+# this function displays the bank account file different from bank account transactions file 
+def display_bank_account(account_name, account_number, status, amount_of_funds):
+	
+
 def login():
 	print("Hello, welcome to the banking system")
 
