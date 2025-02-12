@@ -1,5 +1,31 @@
+import re 
+def validate_name(name):
+	if len(name) > 20:
+		print("Invalid input for account holder\n Name should be less than 20 characters")
+		return False;
+	if re.search(r'\d', name):
+		print("Name should not contain numbers."
+		return False
+	if re.search(r'[^a-zA-Z\s]', name):
+		print("Name should not contain any special characters")
+		return False
+	return True
+	
+
 def login():
-    pass
+	print("Hello, welcome to the banking system")
+
+	session_type = input("Enter session type (standard/admin): ")
+
+	if session_type == "standard":
+		account_name = input("Please provide the account holder's name: ")
+		if validate_name(account_name):
+          print("Login successful as Standard user.")
+	elif session_type == "admin":
+		print("Login successful as Admin user")
+	else: 
+		print("Invalid session type. Please select either 'standard' or 'admin'.")
+		
 
 def withdrawl(account_holder_name, account_number, amount, session_type):
     withdrawal = Withdrawal(account_holder_name, account_number, amount, session_type)
