@@ -1,15 +1,15 @@
 import re 
 def validate_name(name):
-	if len(name) > 20:
-		print("Invalid input for account holder\n Name should be less than 20 characters")
-		return False;
-	if re.search(r'\d', name):
-		print("Name should not contain numbers."
-		return False
-	if re.search(r'[^a-zA-Z\s]', name):
-		print("Name should not contain any special characters")
-		return False
-	return True
+    if len(name) > 20:
+        return "Error: Name should be less than 20 characters."
+
+    if re.search(r'\d', name):
+        return "Error: Name should not contain numbers."
+
+    if re.search(r'[^a-zA-Z\s]', name):
+        return "Error: Name should not contain special characters."
+
+    return True 
 
 def standard_transaction(transaction):
 	restricted_transactions = ["create", "delete", "disable", "change plan"]
