@@ -10,7 +10,18 @@ def validate_name(name):
 		print("Name should not contain any special characters")
 		return False
 	return True
-	
+
+def standard_transaction(transaction):
+	restricted_transactions = ["create", "delete", "disable", "change plan"]
+	if transaction.lower() in restricted_transactions:
+ 		return "Error: Privileged transaction denied for standard user."
+
+    	return "Transaction approved."
+
+def admin_transaction(transaction):
+	allowed_transaction = ["create", "delete", "disable", "change plan"]
+ 	if transaction.lower() in allowed_transaction:
+  		return "Transaction approved for admin user"
 
 def login():
 	print("Hello, welcome to the banking system")
@@ -20,9 +31,19 @@ def login():
 	if session_type == "standard":
 		account_name = input("Please provide the account holder's name: ")
 		if validate_name(account_name):
-          print("Login successful as Standard user.")
+          		print("Login successful as Standard user.")
+	    		display_bank_account(account_name)
+       			transaction = input("Give a transaction to input: ")
+       			standard_transaction(transaction)
+	    	else:
+      			print("Invalid input for user input")
+	 
 	elif session_type == "admin":
 		print("Login successful as Admin user")
+  		display_bank_account(account_name)
+           	transaction = input("Give a transaction to input: ")
+    		admin_transaction(transaction)
+  		
 	else: 
 		print("Invalid session type. Please select either 'standard' or 'admin'.")
 		
