@@ -25,6 +25,7 @@ def admin_transaction(transaction):
 
 # this function displays the bank account file different from bank account transactions file 
 def display_bank_account(account_name, account_number, status, amount_of_funds):
+	print(f"{account_number}_{account_name}_{status}_{amount_of_funds}")
 	
 
 def login():
