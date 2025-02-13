@@ -3,7 +3,7 @@ class TransactionProcessor:
             account = self.getAccount(accounts, accountNumber)
             if account: 
                   account.balance += transactionAmnt
-                  session.addTransaction(Transaction("deposit", accountNumber, transactionAmnt))
+                  session.addTransaction(Transaction("deposit", accountNumber, transactionAmnt, status = "pending"))
                   return True
             return False
       
