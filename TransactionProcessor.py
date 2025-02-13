@@ -1,6 +1,6 @@
 class TransactionProcessor:
       
-    def withdraw(self, session: Session, accounts: list, accountNumber: int, transactionAmnt: float) -> bool:
+    def withdraw(self, session: Session, accounts: list, accountNumber: str, transactionAmnt: float) -> bool:
         """Withdraw money from an account."""
         account = self.getAccount(accounts, accountNumber)
         if session.adminPriv == False and transactionAmnt > 500:
