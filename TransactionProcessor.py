@@ -1,6 +1,5 @@
 class TransactionProcessor:
-    def deposit(self, session: 
-    
+      
     def withdraw(self, session: Session, accounts: list, accountNumber: str, transactionAmnt: float) -> bool:
         """Withdraw money from an account."""
         account = self.getAccount(accounts, accountNumber)
