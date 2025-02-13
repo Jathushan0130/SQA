@@ -1,6 +1,6 @@
 import re 
 import random
-from SQA.withdrawl import Withdrawal
+from withdrawl import Withdrawal
 
 # validates name for valid input cases 
 def validate_name(name):
