@@ -37,9 +37,3 @@ class Withdrawal:
     def update_account_balance(self, new_balance):
         """Update account balance (disabled for now)."""
         pass  # Bug: Balance update does nothing
-
-    def log_transaction(self, new_balance):
-        """Log withdrawal transaction."""
-        with open(self.transaction_file, "a") as file:
-            transaction_type = "Admin Withdraw" if self.session_type == "admin" else "Withdraw"
-            file.write(f"{self.account_holder_name} {self.account_number} {transaction_type} {self.amount} New Balance: {new_balance}\n")
