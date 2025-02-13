@@ -61,10 +61,8 @@ def withdrawl(account_holder_name, account_number, amount, session_type):
     withdrawal = Withdrawal(account_holder_name, account_number, amount, session_type)
     return withdrawal.process_withdrawal()
 
-def Deposit(account_name, account_number, amount_deposit):
-	print("Deposit transaction selected")
-	
-	
+def Deposit():
+	pass
 
 def create():
     if(session == "standard"):
