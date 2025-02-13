@@ -1,6 +1,7 @@
 import re 
 import random
 
+# validates name for valid input cases 
 def validate_name(name):
     if len(name) > 20:
         return "Error: Name should be less than 20 characters."
@@ -18,7 +19,7 @@ def standard_transaction(transaction):
 	if transaction.lower() in restricted_transactions:
  		return "Error: Privileged transaction denied for standard user."
 
-    	return "Transaction approved."
+    	return "Transaction approved." #if user inputs unprivileged transactions such as deposit, withdrawal etc 
 
 def admin_transaction(transaction):
 	allowed_transaction = ["create", "delete", "disable", "change plan"]
@@ -60,8 +61,9 @@ def withdrawl(account_holder_name, account_number, amount, session_type):
     withdrawal = Withdrawal(account_holder_name, account_number, amount, session_type)
     return withdrawal.process_withdrawal()
 
-def Deposit():
-    pass
+def Deposit(account_name, account_number, amount_deposit):
+	print("Deposit transaction selected")
+	
 
 def create():
     if(session == "standard"):
