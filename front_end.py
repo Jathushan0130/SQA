@@ -1,6 +1,7 @@
 import re 
 import random
 from withdrawl import Withdrawal
+from logout import Logout
 
 # validates name for valid input cases 
 def validate_name(name):
@@ -125,7 +126,8 @@ def disable():
     pass
 
 def logout():
-    pass
+    logout_instance = Logout(session_active)
+    return logout_instance.process_logout()
 
 def Transfer():
     pass
@@ -137,3 +139,5 @@ def console():
     with open("myfile.txt", "w") as file:
         file.write("Console initialized\n")
     login()
+
+session_active = True
