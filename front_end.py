@@ -1,6 +1,7 @@
 import re 
 import random
-from withdrawl import Withdrawal
+from Session import Session
+from TransactionDM import Transaction
 from logout import Logout
 
 # validates name for valid input cases 
@@ -59,9 +60,16 @@ def login():
 		print("Invalid session type. Please select either 'standard' or 'admin'.")
 		
 
-def withdrawl(account_holder_name, account_number, amount, session_type):
-    withdrawal = Withdrawal(account_holder_name, account_number, amount, session_type)
-    return withdrawal.process_withdrawal()
+def withdraw(self, session: Session, accounts: list, accountNumber: str, transactionAmnt: float) -> bool:
+    """Withdraw money from an account."""
+    account = self.getAccount(accounts, accountNumber)
+    if session.adminPriv == False and transactionAmnt > 500:
+        return False  # Withdrawal limit for standard users
+    if account and (account.balance - transactionAmnt) >= 0:
+        account.balance -= transactionAmnt
+        session.addTransaction(Transaction("withdrawal", accountNumber, transactionAmnt))
+        return True
+    return False
 
 def Deposit():
 	pass
@@ -125,9 +133,11 @@ def delete():
 def disable():
     pass
 
-def logout():
-    logout_instance = Logout(session_active)
-    return logout_instance.process_logout()
+def logout(self):
+    """Logs out the current user and clears transactions."""
+    self.adminPriv = False
+    self.currentAccount = None
+    self.transactions = []
 
 def Transfer():
     pass
