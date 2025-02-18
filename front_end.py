@@ -75,9 +75,6 @@ def Deposit():
 	pass
 
 def create():
-    if(session == "standard"):
-        print("this functions is unavliable to you ")
-    else:
         print("please enter the name of the account")
         name = input()
         if len(name) > 20:
@@ -104,9 +101,6 @@ def create():
             logout()
 
 def changePlan():
-    if(session == "standard"):
-        print("this functions is unavliable to you ")
-    else:
         print('please enter the name of the account you want to change the plan of')
         with open('test.txt') as file:
                 contents = file.read()
