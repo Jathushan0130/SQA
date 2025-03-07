@@ -1,4 +1,5 @@
 import json
+from bank_account import BankAccount
 
 class FileManager:
     def readAccountsFile(self, filePath: str) -> list:

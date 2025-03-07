@@ -1,4 +1,7 @@
 import re 
+from bank_account import BankAccount
+from transaction_dm import Transaction
+
 class Session:
     def __init__(self, adminPriv: bool, currentAccount: BankAccount):
         self.adminPriv = adminPriv  # A boolean that returns true if the account has admin privileges
@@ -74,7 +77,7 @@ class Session:
         self.currentAccount = None
         self.transactions = []
 
-    def addTransaction(self, transaction: TransactionDM):
+    def addTransaction(self, transaction: Transaction):
         """Adds a transaction to the session's history."""
         self.transactions.append(transaction)
 

@@ -1,4 +1,7 @@
 import random
+from transaction_dm import Transaction
+from session import Session
+
 class TransactionProcessor:
       def deposit(self, session: Session, accounts: list, accountNumber: str, transactionAmnt: float) -> bool:
             account = self.getAccount(accounts, accountNumber)
