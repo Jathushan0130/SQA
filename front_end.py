@@ -87,9 +87,11 @@ def main():
                 for t in transactions:
                     print(t)
                     trans_file.write(t + "\n")
+                    trans_file.flush()
             with open(args.accounts_file, "w") as acc_file:
                 for acc in accounts:
                     acc_file.write(format_account(acc) + "\n")
+                    acc_file.flush()
             session = None
             print("Logged out successfully.")
         
