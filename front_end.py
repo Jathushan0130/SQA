@@ -1,5 +1,4 @@
 import argparse
-import os
 import sys
 from transaction_processor import TransactionProcessor
 from session import Session
@@ -95,7 +94,7 @@ def main():
             print("Logged out successfully.")
         
         elif command == "exit":
-            print("Exiting without saving...")
+            print("Exiting...")
             break
         else:
             print("Invalid command or not logged in.")
