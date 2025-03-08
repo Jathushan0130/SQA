@@ -1,8 +1,0 @@
-Hello, welcome to the banking system
-Enter session type (standard/admin): 
-Please provide the account holder's name: 
-Login successful as Standard user.
-Account Details: 000000_John Doe_Active_0
-Give a transaction to input: 
-Error: Insufficient funds.
-logout
