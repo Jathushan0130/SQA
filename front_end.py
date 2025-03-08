@@ -1,20 +1,32 @@
 import argparse
 import os
+import sys
 from transaction_processor import TransactionProcessor
 from session import Session
+from bank_account import BankAccount
 
+# Formats a transaction for fixed 40-character length
 def format_transaction(code, name, account, amount, misc=""):
-    """Formats a transaction for console output (fixed 40-char format)."""
     return f"{code.ljust(2)}_{name.ljust(20)}_{str(account).zfill(5)}_{str(amount).zfill(8)}_{misc.ljust(2)}"
+
+# Formats account details for fixed 37-character length
+def format_account(account: BankAccount):
+    return f"{str(account.accountNumber).zfill(5)}_{account.accountName.ljust(20)}_{account.status}_{str(account.balance).zfill(8)}"
 
 def main():
     parser = argparse.ArgumentParser(description="Bank ATM command-line program.")
-    parser.add_argument("log_file", nargs="?", default="daily_transaction_file.txt", help="Path to log file")
+    parser.add_argument("transactions_file", help="Path to bank account transaction file")
+    parser.add_argument("accounts_file", help="Path to current bank accounts file")
+    parser.add_argument("log_file", help="Path to log file")
     args = parser.parse_args()
     
     session = None
     transaction_processor = TransactionProcessor()
     transactions = []
+    accounts = []  # Simulated in-memory accounts
+    
+    # Redirect console output to log file
+    sys.stdout = open(args.log_file, "w")
     
     print("Welcome to Bank ATM CLI. Enter commands (login, deposit, withdraw, transfer, paybill, create, delete, disable, changeplan, logout, exit):")
     while True:
@@ -60,6 +72,7 @@ def main():
             if command == "create":
                 initial_balance = float(input("Enter initial balance: "))
                 transactions.append(format_transaction("05", name, account_number, initial_balance))
+                accounts.append(BankAccount(account_number, name, initial_balance))
             elif command == "delete":
                 transactions.append(format_transaction("06", name, account_number, "00000000"))
             elif command == "disable":
@@ -71,13 +84,13 @@ def main():
         elif command == "logout" and session:
             transactions.append("00_END_OF_SESSION_______00000_00000000__")
             print("Transaction log:")
-            with open(args.log_file, "w") as log_file:
+            with open(args.transactions_file, "w") as trans_file:
                 for t in transactions:
                     print(t)
-                    log_file.write(t + "\n")
-                    log_file.flush()
-                    os.fsync(log_file.fileno())
-            log_file.close()
+                    trans_file.write(t + "\n")
+            with open(args.accounts_file, "w") as acc_file:
+                for acc in accounts:
+                    acc_file.write(format_account(acc) + "\n")
             session = None
             print("Logged out successfully.")
         
@@ -86,6 +99,10 @@ def main():
             break
         else:
             print("Invalid command or not logged in.")
+    
+    # Restore console output
+    sys.stdout.close()
+    sys.stdout = sys.__stdout__
 
 if __name__ == "__main__":
     main()
