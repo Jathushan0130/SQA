@@ -1,15 +1,14 @@
 import argparse
-import sys
 from transaction_processor import TransactionProcessor
 from session import Session
 from bank_account import BankAccount
 
-# Formats a transaction for fixed 40-character length
 def format_transaction(code, name, account, amount, misc=""):
+    """Formats a transaction for fixed 40-character length."""
     return f"{code.ljust(2)}_{name.ljust(20)}_{str(account).zfill(5)}_{str(amount).zfill(8)}_{misc.ljust(2)}"
 
-# Formats account details for fixed 37-character length
 def format_account(account: BankAccount):
+    """Formats account details for fixed 37-character length."""
     return f"{str(account.accountNumber).zfill(5)}_{account.accountName.ljust(20)}_{account.status}_{str(account.balance).zfill(8)}"
 
 def main():
@@ -23,11 +22,13 @@ def main():
     transaction_processor = TransactionProcessor()
     transactions = []
     accounts = []  # Simulated in-memory accounts
+    log_output = []
     
-    # Redirect console output to log file
-    sys.stdout = open(args.log_file, "w")
+    def log(message):
+        print(message)
+        log_output.append(message)
     
-    print("Welcome to Bank ATM CLI. Enter commands (login, deposit, withdraw, transfer, paybill, create, delete, disable, changeplan, logout, exit):")
+    log("Welcome to Bank ATM CLI. Enter commands (login, deposit, withdraw, transfer, paybill, create, delete, disable, changeplan, logout, exit):")
     while True:
         command = input("Enter command: ").strip().lower()
         
@@ -40,9 +41,9 @@ def main():
             elif session_type == "admin":
                 session = Session(True, None)
             else:
-                print("Invalid session type.")
+                log("Invalid session type.")
                 continue
-            print(f"Logged in as {session_type}.")
+            log(f"Logged in as {session_type}.")
 
         elif command in ["deposit", "withdraw", "transfer", "paybill"] and session:
             name = input("Enter account holder's name: ").strip() if session.adminPriv else session.name
@@ -61,49 +62,53 @@ def main():
                 if company in ["EC", "CQ", "FI"]:
                     transactions.append(format_transaction("03", name, account_number, amount, company))
                 else:
-                    print("Invalid company.")
+                    log("Invalid company.")
                     continue
-            print(f"{command.capitalize()} recorded.")
+            log(f"{command.capitalize()} recorded.")
 
         elif command in ["create", "delete", "disable", "changeplan"] and session and session.adminPriv:
             name = input("Enter account holder's name: ").strip()
             account_number = input("Enter account number: ").strip()
             if command == "create":
                 initial_balance = float(input("Enter initial balance: "))
+                new_account = BankAccount(account_number, name, initial_balance, status="A")  # Create new account with initial balance and active status by default
                 transactions.append(format_transaction("05", name, account_number, initial_balance))
-                accounts.append(BankAccount(account_number, name, initial_balance))
+                accounts.append(new_account)  # Store account in memory
             elif command == "delete":
                 transactions.append(format_transaction("06", name, account_number, "00000000"))
             elif command == "disable":
                 transactions.append(format_transaction("07", name, account_number, "00000000"))
             elif command == "changeplan":
                 transactions.append(format_transaction("08", name, account_number, "00000000"))
-            print(f"{command.capitalize()} recorded.")
+            log(f"{command.capitalize()} recorded.")
         
         elif command == "logout" and session:
             transactions.append("00_END_OF_SESSION_______00000_00000000__")
-            print("Transaction log:")
+            log("Transaction log:")
             with open(args.transactions_file, "w") as trans_file:
                 for t in transactions:
-                    print(t)
+                    log(t)
                     trans_file.write(t + "\n")
                     trans_file.flush()
             with open(args.accounts_file, "w") as acc_file:
                 for acc in accounts:
                     acc_file.write(format_account(acc) + "\n")
                     acc_file.flush()
+            with open(args.log_file, "w") as log_file:
+                for entry in log_output:
+                    log_file.write(entry + "\n")
+                    log_file.flush()
             session = None
-            print("Logged out successfully.")
+            log("Logged out successfully.")
+            trans_file.close()
+            acc_file.close()
+            log_file.close()
         
         elif command == "exit":
-            print("Exiting...")
+            log("Exiting without saving...")
             break
         else:
-            print("Invalid command or not logged in.")
+            log("Invalid command or not logged in.")
     
-    # Restore console output
-    sys.stdout.close()
-    sys.stdout = sys.__stdout__
-
 if __name__ == "__main__":
     main()

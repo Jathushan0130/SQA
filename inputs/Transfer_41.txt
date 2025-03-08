@@ -1,8 +1,0 @@
-login
-standard
-John Doe
-transfer
-99999
-67890
-100
-logout

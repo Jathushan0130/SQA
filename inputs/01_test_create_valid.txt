@@ -1,8 +1,8 @@
 login
 admin
-AdminUser
-deposit
+create
 John Doe
-ABCDE
-500
+12345
+100
 logout
+exit

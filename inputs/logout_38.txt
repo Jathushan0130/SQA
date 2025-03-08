@@ -1,7 +1,0 @@
-login
-standard
-John Doe
-logout
-deposit
-12345
-500
