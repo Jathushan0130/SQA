@@ -1,0 +1,10 @@
+Hello, welcome to the banking system
+Enter session type (standard/admin): 
+Please provide the account holder's name: 
+Login successful as Admin user.
+Account Details: 000000_AdminUser_Active_0
+Give a transaction to input: 
+Transaction approved for admin user.
+Give a transaction to input: 
+Error: Deposited funds not available in the same session.
+logout
