@@ -1,21 +1,17 @@
 import argparse
-import sys
-from file_manager import FileManager
+import os
 from transaction_processor import TransactionProcessor
 from session import Session
 
 def format_transaction(code, name, account, amount, misc=""):
-    """Formats a transaction line to meet the 40-character requirement."""
+    """Formats a transaction for console output (fixed 40-char format)."""
     return f"{code.ljust(2)}_{name.ljust(20)}_{str(account).zfill(5)}_{str(amount).zfill(8)}_{misc.ljust(2)}"
 
 def main():
     parser = argparse.ArgumentParser(description="Bank ATM command-line program.")
-    parser.add_argument("accounts_file", help="Path to the current bank accounts file")
-    parser.add_argument("transactions_file", help="Path to the transaction output file")
+    parser.add_argument("log_file", nargs="?", default="daily_transaction_file.txt", help="Path to log file")
     args = parser.parse_args()
-
-    file_manager = FileManager()
-    accounts = file_manager.readAccountsFile(args.accounts_file)
+    
     session = None
     transaction_processor = TransactionProcessor()
     transactions = []
@@ -74,7 +70,14 @@ def main():
         
         elif command == "logout" and session:
             transactions.append("00_END_OF_SESSION_______00000_00000000__")
-            file_manager.writeTransactionsFile(args.transactions_file, transactions)
+            print("Transaction log:")
+            with open(args.log_file, "w") as log_file:
+                for t in transactions:
+                    print(t)
+                    log_file.write(t + "\n")
+                    log_file.flush()
+                    os.fsync(log_file.fileno())
+            log_file.close()
             session = None
             print("Logged out successfully.")
         
