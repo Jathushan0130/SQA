@@ -1,0 +1,8 @@
+login
+standard
+Jan Do
+withdraw
+23456
+50
+logout
+exit

@@ -3,13 +3,13 @@ from transaction_processor import TransactionProcessor
 from session import Session
 from bank_account import BankAccount
 
+#Formats a transaction for fixed 40-character length
 def format_transaction(code, name, account, amount, misc=""):
-    """Formats a transaction for fixed 40-character length."""
     return f"{code.ljust(2)}_{name.ljust(20)}_{str(account).zfill(5)}_{str(amount).zfill(8)}_{misc.ljust(2)}"
 
+#Formats account details for fixed 37-character length
 def format_account(account: BankAccount):
-    """Formats account details for fixed 37-character length."""
-    return f"{str(account.accountNumber).zfill(5)}_{account.accountName.ljust(20)}_{account.status}_{str(account.balance).zfill(8)}"
+    return f"{str(account.accountNumber).zfill(5)}_{account.accountName.ljust(20)}_{account.status}_{str(account.balance).zfill(8)}_{account.plan}"
 
 def main():
     parser = argparse.ArgumentParser(description="Bank ATM command-line program.")
@@ -21,7 +21,12 @@ def main():
     session = None
     transaction_processor = TransactionProcessor()
     transactions = []
-    accounts = []  # Simulated in-memory accounts
+    # Simulated existing accounts
+    accounts = [
+        BankAccount("23456", "Jane Doe", 500.00, status="A", plan="NP"),
+        BankAccount("10002", "Bob Smith", 750.50, status="A", plan="SP"),
+        BankAccount("10003", "Charlie Lee", 200.00, status="D", plan="NP")
+        ]  
     log_output = []
     
     def log(message):
@@ -32,6 +37,7 @@ def main():
     while True:
         command = input("Enter command: ").strip().lower()
         
+        # Handles login
         if command == "login":
             session_type = input("Enter session type (standard/admin): ").strip().lower()
             if session_type == "standard":
@@ -71,19 +77,35 @@ def main():
             account_number = input("Enter account number: ").strip()
             if command == "create":
                 initial_balance = float(input("Enter initial balance: "))
-                new_account = BankAccount(account_number, name, initial_balance, status="A")  # Create new account with initial balance and active status by default
+                new_account = BankAccount(account_number, name, initial_balance, status="A", plan="NP")  # Default to Non-Student Plan
                 transactions.append(format_transaction("05", name, account_number, initial_balance))
                 accounts.append(new_account)  # Store account in memory
             elif command == "delete":
                 transactions.append(format_transaction("06", name, account_number, "00000000"))
             elif command == "disable":
-                transactions.append(format_transaction("07", name, account_number, "00000000"))
+                account = next((acc for acc in accounts if acc.accountNumber == account_number), None)
+                if account:
+                    account.status = "D" if account.status == "A" else "A"
+                    transactions.append(format_transaction("07", name, account_number, "00000000", account.status))
+                    log(f"Changed status for {account_number}: Now {account.status}")
+                else:
+                    log("Account not found.")
+                    continue
             elif command == "changeplan":
-                transactions.append(format_transaction("08", name, account_number, "00000000"))
+                account = next((acc for acc in accounts if acc.accountNumber == account_number), None)
+                if account:
+                    account.plan = "SP" if account.plan == "NP" else "NP"
+                    transactions.append(format_transaction("08", name, account_number, "00000000", account.plan))
+                    log(f"Changed plan for {account_number}: Now {account.plan}")
+                else:
+                    log("Account not found.")
+                    continue
             log(f"{command.capitalize()} recorded.")
         
         elif command == "logout" and session:
             transactions.append("00_END_OF_SESSION_______00000_00000000__")
+
+            # Write session transaction log
             log("Transaction log:")
             with open(args.transactions_file, "w") as trans_file:
                 for t in transactions:
@@ -100,12 +122,9 @@ def main():
                     log_file.flush()
             session = None
             log("Logged out successfully.")
-            trans_file.close()
-            acc_file.close()
-            log_file.close()
         
         elif command == "exit":
-            log("Exiting without saving...")
+            log("Exiting...")
             break
         else:
             log("Invalid command or not logged in.")

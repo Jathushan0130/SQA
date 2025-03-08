@@ -1,0 +1,8 @@
+login
+standard
+Jane Doe
+withdraw
+23456
+510
+logout
+exit
