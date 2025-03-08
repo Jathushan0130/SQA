@@ -1,0 +1,9 @@
+Hello, welcome to the banking system
+Enter session type (standard/admin): 
+Please provide the account holder's name: 
+Login successful as Admin user.
+Account Details: 000000_AdminUser_Active_0
+Give a transaction to input: 
+Enter account holder's name to disable: 
+Error: Account not found.
+logout

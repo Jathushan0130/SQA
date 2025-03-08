@@ -1,0 +1,5 @@
+Hello, welcome to the banking system
+Enter session type (standard/admin): 
+Please provide the account holder's name: 
+Error: Name should not contain numbers.
+logout

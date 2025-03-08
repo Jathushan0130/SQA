@@ -1,0 +1,3 @@
+00 login AdminUser
+05 create Alice Johnson 12345 500
+02 logout
