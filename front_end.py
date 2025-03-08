@@ -14,9 +14,9 @@ def format_account(account: BankAccount):
 
 def main():
     parser = argparse.ArgumentParser(description="Bank ATM command-line program.")
-    parser.add_argument("transactions_file", help="Path to bank account transaction file")
-    parser.add_argument("accounts_file", help="Path to current bank accounts file")
-    parser.add_argument("log_file", help="Path to log file")
+    parser.add_argument("transactions_file", nargs="?", default="transactions.txt", help="Path to bank account transaction file")
+    parser.add_argument("accounts_file", nargs="?", default="accounts.txt", help="Path to current bank accounts file")
+    parser.add_argument("log_file", nargs="?", default="log.txt", help="Path to log file")
     args = parser.parse_args()
     
     session = None
