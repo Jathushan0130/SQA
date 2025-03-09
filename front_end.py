@@ -3,20 +3,30 @@ from transaction_processor import TransactionProcessor
 from session import Session
 from bank_account import BankAccount
 
-# Formats a transaction for fixed 40-character length
+# Function to format a transaction into a standardized 40-character string
+# Ensures consistency when storing and processing transaction logs
+# Includes transaction code, account holder's name, account number, amount, and an optional miscellaneous field
 def format_transaction(code, name, account, amount, misc=""):
     return f"{code.ljust(2)}_{name.ljust(20)}_{str(account).zfill(5)}_{str(amount).zfill(8)}_{misc.ljust(2)}"
 
-# Formats account details for fixed 37-character length
+# Function to format an account's details into a standardized 37-character string
+# Ensures proper alignment for data storage and retrieval
 def format_account(account: BankAccount):
     return f"{str(account.accountNumber).zfill(5)}_{account.accountName.ljust(20)}_{account.status}_{str(account.balance).zfill(8)}_{account.plan}"
 
+# Searches for an account using the account number
+# Returns the account object if found, otherwise None
 def find_account(account_number, accounts):
     return next((acc for acc in accounts if acc.accountNumber == account_number), None)
 
+# Searches for an account using the account holder's name
+# Used in login processes and account-related operations
 def find_account_by_name(account_name, accounts):
     return next((acc for acc in accounts if acc.accountName == account_name), None)
 
+
+# Ensures user input is a valid numeric value and falls within specified limits
+# Repeats prompt until a valid input is received
 def get_valid_number_input(prompt, min_value=None, max_value=None):
     while True:
         try:
@@ -31,6 +41,8 @@ def get_valid_number_input(prompt, min_value=None, max_value=None):
         except ValueError:
             print("Error: Invalid input. Please enter a numeric value.")
 
+# Main function handling user interaction with the command-line banking system
+# Manages user login, transactions, and session-based actions
 def main():
     parser = argparse.ArgumentParser(description="Bank ATM command-line program.")
     parser.add_argument("transactions_file", nargs="?", default="transactions.txt", help="Path to bank account transaction file")
@@ -38,17 +50,18 @@ def main():
     parser.add_argument("log_file", nargs="?", default="log.txt", help="Path to log file")
     args = parser.parse_args()
     
-    session = None
-    transaction_processor = TransactionProcessor()
-    transactions = []
-    # Simulated existing accounts - change this when implementing the back end
+    session = None  # Tracks the current active user session
+    transaction_processor = TransactionProcessor()  # Handles transaction execution
+    transactions = []  # Stores a list of transactions for the session
+    # Sample accounts for testing; these will be replaced by actual backend data
     accounts = [
         BankAccount("23456", "Jane Doe", 500.00, adminPriv=False, status="A", plan="NP"),
         BankAccount("10002", "Bob Smith", 750.50, adminPriv=True, status="A", plan="SP"),
         BankAccount("10003", "Charlie Lee", 200.00, adminPriv=False, status="D", plan="NP")
     ]  
-    log_output = []
+    log_output = [] # Stores log messages for later review and file writing
     
+    # Helper function for logging messages to both console and log storage
     def log(message):
         print(message)
         log_output.append(message)
@@ -57,6 +70,7 @@ def main():
     while True:
         command = input("Enter command: ").strip().lower()
         
+        # Handles user login process, supporting standard and admin users
         if command == "login":
             if session:
                 log("Error: Already logged in. Please logout first.")
@@ -75,14 +89,14 @@ def main():
                         log("Error: Account holder name not found.")
                         continue
                     break
-                session = Session(False, account)
+                session = Session(False, account) 
             else:
                 # Creating a temporary "admin account" to store admin privileges
                 admin_account = BankAccount("00000", "Admin", 0.00, adminPriv=True, status="A", plan="NP")
                 session = Session(True, admin_account)  # Associate session with the admin account
 
             log(f"Logged in as {session_type}.")
-
+        # Handles user logout, saving transaction logs and clearing session data
         elif command == "logout":
             if not session:
                 log("Error: No active session to logout from.")
@@ -99,9 +113,9 @@ def main():
             with open(args.log_file, "w") as log_file:
                 for entry in log_output:
                     log_file.write(entry + "\n")
-            session = None
+            session = None # Session is reset after logout
             log("Logged out successfully.")
-        
+        # Manages financial transactions including withdrawal, deposit, transfer, and bill payment
         elif command in ["withdraw", "deposit", "transfer", "paybill"]:
             if not session:
                 log("Error: Please login first.")
@@ -217,12 +231,12 @@ def main():
                     continue
                 session = Session(True, account)
             log(f"Logged in as {session_type}.")
-            
+        # Allows users to exit the program    
         elif command == "exit":
             log("Exiting...")
             break
         else:
-            log("Invalid command.")
+            log("Invalid command.") # Handles unrecognized commands
     
 if __name__ == "__main__":
     main()
