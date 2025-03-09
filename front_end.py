@@ -66,6 +66,7 @@ def main():
                 if session_type in ["standard", "admin"]:
                     break
                 log("Error: Invalid session type. Please enter 'standard' or 'admin'.")
+            
             if session_type == "standard":
                 while True:
                     name = input("Enter account holder's name: ").strip()
@@ -149,6 +150,73 @@ def main():
                 log("Error: Only admins can perform this action.")
                 continue
             log(f"Executing {command}...")
+            if command == "create":
+                name = input("Enter new account holder name: ").strip()
+                if len(name) > 20:
+                    log("Error: Account holder name must be at most 20 characters.")
+                    continue
+                
+                account_number = str(len(accounts) + 10000)  # Simple unique ID generation
+                initial_balance = get_valid_number_input("Enter initial balance: ", min_value=0, max_value=999999.99)
+                
+                new_account = BankAccount(account_number, name, initial_balance, adminPriv=False, status="A", plan="NP")
+                accounts.append(new_account)
+                log("Account created successfully.")
+                
+            elif command == "delete":
+                name = input("Enter account holder's name: ").strip()
+                account = find_account_by_name(name, accounts)
+                if not account:
+                    log("Error: Account not found.")
+                    continue
+                accounts.remove(account)
+                log("Account deleted successfully.")
+                
+            elif command == "disable":
+                name = input("Enter account holder's name: ").strip()
+                account = find_account_by_name(name, accounts)
+                if not account:
+                    log("Error: Account not found.")
+                    continue
+                account.status = "D"
+                log("Account disabled successfully.")
+                
+            elif command == "changeplan":
+                name = input("Enter account holder's name: ").strip()
+                account = find_account_by_name(name, accounts)
+                if not account:
+                    log("Error: Account not found.")
+                    continue
+                account.plan = "SP" if account.plan == "NP" else "NP"
+                log("Account payment plan updated successfully.")
+
+        # Update the login process to correctly set admin privileges
+        elif command == "login":
+            if session:
+                log("Error: Already logged in. Please logout first.")
+                continue
+            while True:
+                session_type = input("Enter session type (standard/admin): ").strip().lower()
+                if session_type in ["standard", "admin"]:
+                    break
+                log("Error: Invalid session type. Please enter 'standard' or 'admin'.")
+            if session_type == "standard":
+                while True:
+                    name = input("Enter account holder's name: ").strip()
+                    account = find_account_by_name(name, accounts)
+                    if not account:
+                        log("Error: Account holder name not found.")
+                        continue
+                    break
+                session = Session(False, account)
+            else:
+                name = input("Enter admin account holder's name: ").strip()
+                account = find_account_by_name(name, accounts)
+                if not account or not account.adminPriv:
+                    log("Error: No admin privileges for this account.")
+                    continue
+                session = Session(True, account)
+            log(f"Logged in as {session_type}.")
             
         elif command == "exit":
             log("Exiting...")
