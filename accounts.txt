@@ -1,3 +1,4 @@
-23456_Jane Doe            _A_000500.0_NP
-10002_Bob Smith           _A_000750.5_SP
-10003_Charlie Lee         _D_000200.0_NP
+23456_Jane Doe           A_00000500_NP
+10002_Bob Smith          A_00000750_SP
+10003_Charlie Lee        D_00000200_NP
+END_OF_FILE

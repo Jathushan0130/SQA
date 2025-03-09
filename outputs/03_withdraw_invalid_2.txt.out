@@ -1,0 +1,8 @@
+Welcome to Bank ATM CLI. Enter commands (login, deposit, withdraw, transfer, paybill, create, delete, disable, changeplan, logout, exit):
+Enter command: Enter session type (standard/admin): Enter account holder's name: Logged in as standard.
+Enter command: Enter account number: Enter amount: Withdraw recorded.
+Enter command: Transaction log:
+01_Jan Do              _23456_000050.0_  
+00_END_OF_SESSION_______00000_00000000__
+Logged out successfully.
+Enter command: Exiting...
