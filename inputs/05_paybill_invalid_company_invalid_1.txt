@@ -1,0 +1,9 @@
+login
+standard
+Jane Doe
+paybill
+23456
+40.00
+XYZ
+logout
+exit

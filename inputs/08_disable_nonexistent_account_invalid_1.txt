@@ -1,0 +1,7 @@
+login
+admin
+disable
+Alice Doe
+99999
+logout
+exit

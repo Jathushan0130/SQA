@@ -1,0 +1,7 @@
+login
+admin
+changeplan
+Alice Doe
+99999
+logout
+exit
