@@ -1,0 +1,9 @@
+login
+standard
+Jane Doe
+create
+John Doe
+v
+100.00
+logout
+exit

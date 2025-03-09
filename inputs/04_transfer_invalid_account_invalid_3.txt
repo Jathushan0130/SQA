@@ -1,0 +1,9 @@
+login
+admin
+transfer
+Jane Doe
+23456
+99999
+50.00
+logout
+exit

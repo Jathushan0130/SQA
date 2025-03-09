@@ -1,0 +1,7 @@
+login
+admin
+deposit
+99999
+200.00
+logout
+exit

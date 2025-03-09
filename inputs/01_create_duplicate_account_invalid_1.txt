@@ -1,0 +1,8 @@
+login
+admin
+create
+Jane Doe
+23456
+100.00
+logout
+exit
