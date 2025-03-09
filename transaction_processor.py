@@ -39,7 +39,7 @@ def create():
             print("the name you entered is too long (the max is 20 charaters)")
         else:
             name_number = str(random.randrange(1,99999))
-            with open('test.txt') as file:
+            with open('accounts.txt') as file:
                 contents = file.read()
                 search_word = name_number
                 if search_word in contents:
@@ -49,7 +49,7 @@ def create():
             amount = input()
             if float(amount) > 99999.99:
                 print(amount + 'is larger the the max for creating a new acount ($99999.99)')
-            file = open("test.txt", "a")
+            file = open("accounts.txt", "a")
             file.write(name)
             file.write(': ')
             file.write(name_number)
@@ -59,13 +59,13 @@ def create():
 
 def changePlan():
         print('please enter the name of the account you want to change the plan of')
-        with open('test.txt') as file:
+        with open('accounts.txt') as file:
                 contents = file.read()
                 search_word = input()
                 if search_word in contents:
                     print('enter the account number')
                     number = input()
-                    with open('test.txt') as file:
+                    with open('acounts.txt') as file:
                         contents = file.read()
                         search_word = number
                         if int(search_word) in contents:
